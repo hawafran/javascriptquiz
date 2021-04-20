@@ -9,16 +9,21 @@
     <title>Document</title>
 </head>
 <body>
-  
-  <div id="start"> staer quiz </div>
+  <div id="container">
+    <div id="start"> start quiz </div>
+    <div id="quiz" style="display:none">
+      <div id="question"></div>
+      <div id="choices"></div>
+         <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+         <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+         <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+         <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+    </div>
   <div id="timer">
     <div id="counter"> </div>
-    <div id="choices">
+    
   
-      <div class="choice" id="A" onclick="checkAnswer('A')">A</div>
-      <div class="choice" id="B" onclick="checkAnswer('B')">B</div>
-      <div class="choice" id="C" onclick="checkAnswer('C')">C</div>
-      <div class="choice" id="D" onclick="checkAnswer('D')">D</div>
+      
   </div>
 <div id= "score-container" style="display:none;"></div>
   <script src="./Assets/script.js"></script>  

@@ -3,10 +3,15 @@
 
 // timer begins 
 
-var correct=0;
-var choiceA, choiceB, choiceC, choiceD;
-var choices;
-var userChoice;
+const start= document.getElementById("start");
+const quiz= document.getElementById("quiz");
+const choiceA = document.getElementById("A");
+const choiceB = document.getElementById("B");
+const choiceC = document.getElementById("C");
+const choiceD = document.getElementById("D");
+const counter = document.getElementById("counter");
+const question = document.getElementById("question");
+
 
 let questions = [
     {
@@ -35,43 +40,59 @@ let questions = [
       },
     {
         question: "question 4",
-        a: "A",
-        b: "B",
-        c: "C",
-        d: "D",
+        choiceA: "A",
+        choiceB: "B",
+        choiceC: "C",
+        choiceD: "D",
         correct: "A"
       },
       {
         question: "question 5",
-      a: "A",
-      b: "B",
-      c: "C",
-      d: "D",
+        choiceA: "A",
+        choiceB: "B",
+        choiceC: "C",
+        choiceD: "D",
       correct: "C"
     },
 
     {
         question: "question 6",
-      a: "A",
-      b: "B",
-      c: "C",
-      d: "D",
+        choiceA: "A",
+        choiceB: "B",
+        choiceC: "C",
+        choiceD: "D",
       correct: "D"
     }
   ];
 
 
 // user is presented with test questions
+
 let lastQuestionIndex=questions.length-1;
-let runningQuestionIndex=0;
+let runningQuestionIndex=5;
+const questionTime=10;
+let score=0;
+let timer;
+let count=0;
 
 function renderQuestion(){
-  let x = questions[runningQuestionIndex];
-question.innerHTML="<p>"+ x.question +"</p>";
-choiceA.innerHTML=x.choiceA;
-choiceB.innerHTML=x.choiceB;
-choiceC.innerHTML=x.choiceC;
-choiceD.innerHTML=x.choiceD;
+  
+choiceA.innerHTML=questions[runningQuestionIndex].choiceA;
+choiceB.innerHTML=questions[runningQuestionIndex].choiceB;
+choiceC.innerHTML=questions[runningQuestionIndex].choiceC;
+choiceD.innerHTML=questions[runningQuestionIndex].choiceD;
+}
+
+start.addEventListener("click",startQuiz);
+
+function startQuiz(){
+  start.style.display="none";
+  renderQuestion();
+  quiz.style.display="block";
+  renderCounter();
+  timer=setInterval(renderCounter,1000);
+  
+ 
 }
 
 function answerCorrect(){
@@ -82,30 +103,25 @@ function answerWrong(){
 }
 
 // -------->timer<------
-var questionTime=10;
-let count=0;
-
-
-function counterRender(){
+function renderCounter(){
   if (count<=questionTime){
-    counterRender.innerHTML=count;
+  counter.innerHTML=count;
     count++
   }
   else{
     count=0;
-    count+2;
     answerWrong();
     if(runningQuestionIndex<lastQuestionIndex){
       runningQuestionIndex++;
-      questionRender()
+      renderQuestion()
     }else { clearInterval(timer);
-    scoreRender();
+    renderScore();
     }
   }
 }
 
 // ------>varifying answers<-----
-let score =0;
+
 function checkAnswer(answer){
   if(questions[runningQuestionIndex].correct==answer){
     score++;
@@ -113,8 +129,8 @@ function checkAnswer(answer){
   }else{
   answerWrong();
 }
+count=0;
 if(runningQuestionIndex<lastQuestionIndex){
-  count=0;
   runningQuestionIndex++;
   questionRender();
 }else{
@@ -124,17 +140,17 @@ if(runningQuestionIndex<lastQuestionIndex){
   }
 }
 
-var start=document.getElementById("start");
-start.addEventListener("click",startQuiz);
-let timer;
-
-function startQuiz(){
-  start.style.display="none";
-  counterRender();
-  timer=setInterval(counterRender,1000);
-  questionRender();
-  quiz.style.display="block";
+function answerCorrect(){
+  document.getElementById(runningQuestionIndex).style.color="green";
 }
+function answerWrong(){
+  document.getElementById(runningQuestionIndex).style.color="red";
+}
+
+
+
+
+
 
 
 
