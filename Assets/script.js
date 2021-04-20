@@ -3,27 +3,27 @@
 
 // timer begins 
 
-const start= document.getElementById("start");
-const quiz= document.getElementById("quiz");
-const choiceA = document.getElementById("A");
-const choiceB = document.getElementById("B");
-const choiceC = document.getElementById("C");
-const choiceD = document.getElementById("D");
-const counter = document.getElementById("counter");
-const question = document.getElementById("question");
+var start= document.getElementById("start");
+var quiz= document.getElementById("quiz");
+var choiceA = document.getElementById("A");
+var choiceB = document.getElementById("B");
+var choiceC = document.getElementById("C");
+var choiceD = document.getElementById("D");
+var counter = document.getElementById("counter");
+var questions = document.getElementById("questions");
 
 
-let questions = [
+var questions = [
     {
-        question: "question 1",
-        choiceA: "A",
-        choiceB: "B",
-        choiceC: "C",
-        choiceD: "D",
+        question:"2+2",
+        choiceA: "4",
+        choiceB: "wrong",
+        choiceC: "correct",
+        choiceD: "wrong",
         correct: "C"
       },
     {
-        question: "question 2",
+        question: "2+3",
         choiceA: "A",
         choiceB: "B",
         choiceC: "C",
@@ -68,20 +68,22 @@ let questions = [
 
 // user is presented with test questions
 
-let lastQuestionIndex=questions.length-1;
-let runningQuestionIndex=5;
-const questionTime=10;
+let lastQuestion=questions.length-1;
+let currentQuestion=0;
+var questionTime=10;
 let score=0;
 let timer;
-let count=0;
+let timeLeft=10;
 
 function renderQuestion(){
-  
-choiceA.innerHTML=questions[runningQuestionIndex].choiceA;
-choiceB.innerHTML=questions[runningQuestionIndex].choiceB;
-choiceC.innerHTML=questions[runningQuestionIndex].choiceC;
-choiceD.innerHTML=questions[runningQuestionIndex].choiceD;
+ question.textContent=questions[currentQuestion].question
+choiceA.textContent=questions[currentQuestion].choiceA;
+choiceB.textContent=questions[currentQuestion].choiceB;
+choiceC.textContent=questions[currentQuestion].choiceC;
+choiceD.textContent=questions[currentQuestion].choiceD;
 }
+
+
 
 start.addEventListener("click",startQuiz);
 
@@ -90,63 +92,64 @@ function startQuiz(){
   renderQuestion();
   quiz.style.display="block";
   renderCounter();
-  timer=setInterval(renderCounter,1000);
+  // timer=setInterval(renderCounter,1000);
   
  
 }
 
-function answerCorrect(){
-  document.getElementById(runningQuestionIndex).style.color="green"
-}
-function answerWrong(){
-  document.getElementById(runningQuestionIndex).style.color="red"
-}
+
 
 // -------->timer<------
-function renderCounter(){
-  if (count<=questionTime){
-  counter.innerHTML=count;
-    count++
+// function renderCounter(){
+//   if (count<=questionTime){
+//   counter.textContent=timeLeft;
+//     timeLeft--
+//   }
+//   else{
+
+//     answerIncorrect();
+//     if(currentQuestion<lastQuestion){
+//       runningQuestion++;
+//       renderQuestion();
+//     }else { clearInterval(timer);
+//     renderScore();
+//     }
+//   }
+// }
+
+function renderCounter() {
+var timerInterval=setInterval(function(){
+  questionTime--;
+  counter.textContent=questionTime;
+
+  if (questionTime===0){
+    clearInterval(timerInterval);
   }
-  else{
-    count=0;
-    answerWrong();
-    if(runningQuestionIndex<lastQuestionIndex){
-      runningQuestionIndex++;
-      renderQuestion()
-    }else { clearInterval(timer);
-    renderScore();
-    }
-  }
+}, 1000);
+
 }
+
 
 // ------>varifying answers<-----
 
 function checkAnswer(answer){
-  if(questions[runningQuestionIndex].correct==answer){
+  if(questions[currentQuestion].correct==answer){
     score++;
     answerCorrect();
   }else{
-  answerWrong();
+  answerIncorrect();
 }
 count=0;
-if(runningQuestionIndex<lastQuestionIndex){
-  runningQuestionIndex++;
-  questionRender();
-}else{
+if(currentQuestion<lastQuestion){
+  currentQuestion++;
+  renderQuestion();
+}
+else{
   clearInterval(timer);
   scoreRender();
 
   }
 }
-
-function answerCorrect(){
-  document.getElementById(runningQuestionIndex).style.color="green";
-}
-function answerWrong(){
-  document.getElementById(runningQuestionIndex).style.color="red";
-}
-
 
 
 
