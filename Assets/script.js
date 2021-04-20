@@ -15,7 +15,7 @@ let questions = [
         choiceB: "B",
         choiceC: "C",
         choiceD: "D",
-        correctAnswer: "C"
+        correct: "C"
       },
     {
         question: "question 2",
@@ -23,7 +23,7 @@ let questions = [
         choiceB: "B",
         choiceC: "C",
         choiceD: "D",
-        correctAnswer: "B"
+        correct: "B"
       },
     {
         question: "question 3",
@@ -31,7 +31,7 @@ let questions = [
         choiceB: "B",
         choiceC: "C",
         choiceD: "D",
-        correctAnswer: "A"
+        correct: "A"
       },
     {
         question: "question 4",
@@ -39,7 +39,7 @@ let questions = [
         b: "B",
         c: "C",
         d: "D",
-        correctAnswer: "A"
+        correct: "A"
       },
       {
         question: "question 5",
@@ -47,7 +47,7 @@ let questions = [
       b: "B",
       c: "C",
       d: "D",
-      correctAnswer: "C"
+      correct: "C"
     },
 
     {
@@ -56,7 +56,7 @@ let questions = [
       b: "B",
       c: "C",
       d: "D",
-      correctAnswer: "D"
+      correct: "D"
     }
   ];
 
@@ -85,7 +85,7 @@ function answerWrong(){
 var questionTime=10;
 let count=0;
 
-setInterval(counterRender,1000);
+
 function counterRender(){
   if (count<=questionTime){
     counterRender.innerHTML=count;
@@ -93,7 +93,7 @@ function counterRender(){
   }
   else{
     count=0;
-    count-2;
+    count+2;
     answerWrong();
     if(runningQuestionIndex<lastQuestionIndex){
       runningQuestionIndex++;
@@ -105,6 +105,37 @@ function counterRender(){
 }
 
 // ------>varifying answers<-----
+let score =0;
+function checkAnswer(answer){
+  if(questions[runningQuestionIndex].correct==answer){
+    score++;
+    answerCorrect();
+  }else{
+  answerWrong();
+}
+if(runningQuestionIndex<lastQuestionIndex){
+  count=0;
+  runningQuestionIndex++;
+  questionRender();
+}else{
+  clearInterval(timer);
+  scoreRender();
+
+  }
+}
+
+var start=document.getElementById("start");
+start.addEventListener("click",startQuiz);
+let timer;
+
+function startQuiz(){
+  start.style.display="none";
+  counterRender();
+  timer=setInterval(counterRender,1000);
+  questionRender();
+  quiz.style.display="block";
+}
+
 
 
 
