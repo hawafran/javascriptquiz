@@ -74,6 +74,38 @@ choiceC.innerHTML=x.choiceC;
 choiceD.innerHTML=x.choiceD;
 }
 
+function answerCorrect(){
+  document.getElementById(runningQuestionIndex).style.color="green"
+}
+function answerWrong(){
+  document.getElementById(runningQuestionIndex).style.color="red"
+}
+
+// -------->timer<------
+var questionTime=10;
+let count=0;
+
+setInterval(counterRender,1000);
+function counterRender(){
+  if (count<=questionTime){
+    counterRender.innerHTML=count;
+    count++
+  }
+  else{
+    count=0;
+    count-2;
+    answerWrong();
+    if(runningQuestionIndex<lastQuestionIndex){
+      runningQuestionIndex++;
+      questionRender()
+    }else { clearInterval(timer);
+    scoreRender();
+    }
+  }
+}
+
+// ------>varifying answers<-----
+
 
 
 // computer alerts user whether correct or incorrect
