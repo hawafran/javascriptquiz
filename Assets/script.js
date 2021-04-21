@@ -10,56 +10,57 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var counter = document.getElementById("counter");
-var questions = document.getElementById("questions");
+var question = document.getElementById("question");
+var status = document.getElementById("answer-status");
 
 
 var questions = [
     {
-        question:"2+2",
-        choiceA: "4",
+        question:"question 1",
+        choiceA: "wrong",
         choiceB: "wrong",
         choiceC: "correct",
         choiceD: "wrong",
         correct: "C"
       },
     {
-        question: "2+3",
-        choiceA: "A",
-        choiceB: "B",
-        choiceC: "C",
-        choiceD: "D",
+        question: "question 2",
+        choiceA: "wrong",
+        choiceB: "correct",
+        choiceC: "wrong",
+        choiceD: "wrong",
         correct: "B"
       },
     {
         question: "question 3",
         choiceA: "A",
-        choiceB: "B",
-        choiceC: "C",
-        choiceD: "D",
+        choiceB: "w",
+        choiceC: "w",
+        choiceD: "w",
         correct: "A"
       },
     {
         question: "question 4",
         choiceA: "A",
-        choiceB: "B",
-        choiceC: "C",
-        choiceD: "D",
+        choiceB: "w",
+        choiceC: "w",
+        choiceD: "w",
         correct: "A"
       },
       {
         question: "question 5",
-        choiceA: "A",
-        choiceB: "B",
+        choiceA: "w",
+        choiceB: "w",
         choiceC: "C",
-        choiceD: "D",
+        choiceD: "w",
       correct: "C"
     },
 
     {
         question: "question 6",
-        choiceA: "A",
-        choiceB: "B",
-        choiceC: "C",
+        choiceA: "w",
+        choiceB: "w",
+        choiceC: "w",
         choiceD: "D",
       correct: "D"
     }
@@ -70,10 +71,10 @@ var questions = [
 
 let lastQuestion=questions.length-1;
 let currentQuestion=0;
-var questionTime=10;
+var questionTime=60;
 let score=0;
 let timer;
-let timeLeft=10;
+let timeLeft=60;
 
 function renderQuestion(){
  question.textContent=questions[currentQuestion].question
@@ -83,7 +84,7 @@ choiceC.textContent=questions[currentQuestion].choiceC;
 choiceD.textContent=questions[currentQuestion].choiceD;
 }
 
-
+// --------->start button<-------
 
 start.addEventListener("click",startQuiz);
 
@@ -98,25 +99,7 @@ function startQuiz(){
 }
 
 
-
-// -------->timer<------
-// function renderCounter(){
-//   if (count<=questionTime){
-//   counter.textContent=timeLeft;
-//     timeLeft--
-//   }
-//   else{
-
-//     answerIncorrect();
-//     if(currentQuestion<lastQuestion){
-//       runningQuestion++;
-//       renderQuestion();
-//     }else { clearInterval(timer);
-//     renderScore();
-//     }
-//   }
-// }
-
+//--------->timer<--------
 function renderCounter() {
 var timerInterval=setInterval(function(){
   questionTime--;
@@ -124,31 +107,65 @@ var timerInterval=setInterval(function(){
 
   if (questionTime===0){
     clearInterval(timerInterval);
+    renderScore()
   }
 }, 1000);
 
 }
 
+// --------varify answers<---------
+
+function checkAnswer(answer) {
+var answerIncorrect; 
+  if(currentQuestion<lastQuestion){
+    questionTime-=5;
+    currentQuestion++;
+    renderQuestion();
+    
+  
+  }
+
+
+ var answerCorrect; {
+  if(questions[currentQuestion].correct==answer){
+    score++;
+}}
+
+
+//----->saving score<----
+localStorage.setItem("score", JSON.stringify(score));
+
+function renderScore(){
+
+  var finalScore = JSON.parse(localStorage.getItem("score"));
+   scorePercentage = Math.round(100 * score/questions.length);
+  scoreDiv.textContent = scorePercentage +"%"
+}
+
+
+
+
 
 // ------>varifying answers<-----
 
-function checkAnswer(answer){
-  if(questions[currentQuestion].correct==answer){
-    score++;
-    answerCorrect();
-  }else{
-  answerIncorrect();
-}
-count=0;
-if(currentQuestion<lastQuestion){
-  currentQuestion++;
-  renderQuestion();
-}
-else{
-  clearInterval(timer);
-  scoreRender();
+// function checkAnswer(answer){
+//   if(questions[currentQuestion].correct==answer){
+//     score++;
+//     answerCorrect();
+//   }
+//   else{
+//   answerIncorrect();
+// }
+// count=0;
+// if(currentQuestion<lastQuestion){
+//   currentQuestion++;
+//   renderQuestion();
+// }
+// else{
+//   clearInterval(timer);
+//   scoreRender();
 
-  }
+  // }
 }
 
 

@@ -1,6 +1,7 @@
 
-        #quiz{
-            border: 2px solid, palevioletred;
-            padding:10px 40px 40px 40px;
-            background-color:#E5FCE3;
-            width:50%;}
+       * {
+           margin:none;
+           padding: none;
+           border: 5px;border-color: palevioletred;
+
+       }
