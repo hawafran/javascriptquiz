@@ -11,7 +11,7 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var counter = document.getElementById("counter");
 var question = document.getElementById("question");
-var status = document.getElementById("answer-status");
+var quizscore = document.getElementById("quiz-score");
 
 
 var questions = [
@@ -105,7 +105,7 @@ var timerInterval=setInterval(function(){
   questionTime--;
   counter.textContent=questionTime;
 
-  if (questionTime===0){
+  if (questionTime===0 || lastQuestion===0){
     clearInterval(timerInterval);
     renderScore()
   }
@@ -136,70 +136,24 @@ var answerIncorrect;
 localStorage.setItem("score", JSON.stringify(score));
 
 function renderScore(){
-
+  quizscore.style.display="block";
+  
   var finalScore = JSON.parse(localStorage.getItem("score"));
    scorePercentage = Math.round(100 * score/questions.length);
   scoreDiv.textContent = scorePercentage +"%"
 }
-
-
-
-
-
-// ------>varifying answers<-----
-
-// function checkAnswer(answer){
-//   if(questions[currentQuestion].correct==answer){
-//     score++;
-//     answerCorrect();
-//   }
-//   else{
-//   answerIncorrect();
-// }
-// count=0;
-// if(currentQuestion<lastQuestion){
-//   currentQuestion++;
-//   renderQuestion();
-// }
-// else{
-//   clearInterval(timer);
-//   scoreRender();
-
-  // }
 }
 
+// ------->save name 
+
+
+saveButton.addEventListener("click", function(event) {
+  event.saveScore();
+  
+  var userInitials = {
+    initials: initials.value.trim()
+    
+  }})
 
 
 
-
-
-
-
-// computer alerts user whether correct or incorrect
-    // if answer is incorrect, time is subtracted 
-// answer is stored
-// computer moves to the next question after answer is solected 
-// quiz is over when timer hits 0 or all questions are asnwered 
-// user presented with score 
-// user saves score with initials
-    // computer stores score
-// computer shows users score alone with other saved scores 
-
-
-// function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
-
-// 	function showQuestions(questions, quizContainer){
-// 		// code will go here
-// 	}
-
-// 	function showResults(questions, quizContainer, resultsContainer){
-// 		// code will go here
-// 	}
-
-// 	// show the questions
-// 	showQuestions(questions, quizContainer);
-
-// 	// when user clicks submit, show results
-// 	submitButton.onclick = function(){
-// 		showResults(questions, quizContainer, resultsContainer);
-// 	}
