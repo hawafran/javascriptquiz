@@ -16,53 +16,53 @@ var quizscore = document.getElementById("quiz-score");
 
 var questions = [
     {
-        question:"question 1",
-        choiceA: "wrong",
-        choiceB: "wrong",
-        choiceC: "correct",
-        choiceD: "wrong",
-        correct: "C"
-      },
-    {
-        question: "question 2",
-        choiceA: "wrong",
-        choiceB: "correct",
-        choiceC: "wrong",
-        choiceD: "wrong",
+        question:"Inside which HTML element do we put the JavaScript?",
+        choiceA: "<scripting>",
+        choiceB: "<script>",
+        choiceC: "<javascript>",
+        choiceD: "<js>",
         correct: "B"
       },
     {
-        question: "question 3",
-        choiceA: "A",
-        choiceB: "w",
-        choiceC: "w",
-        choiceD: "w",
-        correct: "A"
+        question: "Where is the correct place to insert a JavaScript?",
+        choiceA: "<head>",
+        choiceB: "<body>",
+        choiceC: "both <head> and <body>",
+        choiceD: "none of the above",
+        correct: "C"
       },
     {
-        question: "question 4",
-        choiceA: "A",
-        choiceB: "w",
-        choiceC: "w",
-        choiceD: "w",
-        correct: "A"
+        question: "How do you create a function in JavaScript?",
+        choiceA: "function = myFunction()",
+        choiceB: "function myFunction()  ",
+        choiceC: "function:myFunction()",
+        choiceD: "none of the above",
+        correct: "B"
+      },
+    {
+        question: "What is the correct syntax for referring to an external script called 'xxx.js'?",
+        choiceA: "<script href='xxx.js'>",
+        choiceB: "<script src= 'xxx.js'>",
+        choiceC: "<script name= 'xxx.js'>",
+        choiceD: "none of the above",
+        correct: "B"
       },
       {
-        question: "question 5",
-        choiceA: "w",
-        choiceB: "w",
-        choiceC: "C",
-        choiceD: "w",
-      correct: "C"
+        question: "The external JavaScript file must contain the <script> tag.",
+        choiceA: "True",
+        choiceB: "False",
+        choiceC: "All of the Above",
+        choiceD: "None of the Above",
+      correct: "B"
     },
 
     {
-        question: "question 6",
-        choiceA: "w",
-        choiceB: "w",
-        choiceC: "w",
-        choiceD: "D",
-      correct: "D"
+        question: "How do you write 'Hello World' in an alert box?",
+        choiceA: "msg('Hello World')",
+        choiceB: "alert('Hello World')",
+        choiceC: "alertBox('Hello World')",
+        choiceD: "msgBox('Hello World')",
+      correct: "B"
     }
   ];
 
@@ -137,7 +137,7 @@ localStorage.setItem("score", JSON.stringify(score));
 
 function renderScore(){
   quizscore.style.display="block";
-  
+
   var finalScore = JSON.parse(localStorage.getItem("score"));
    scorePercentage = Math.round(100 * score/questions.length);
   scoreDiv.textContent = scorePercentage +"%"
