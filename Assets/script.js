@@ -118,7 +118,7 @@ var timerInterval=setInterval(function(){
 function checkAnswer(answer) {
 var answerIncorrect; 
   if(currentQuestion<lastQuestion){
-    questionTime-=5;
+    questionTime--;
     currentQuestion++;
     renderQuestion();
     
